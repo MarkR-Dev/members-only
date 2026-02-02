@@ -3,7 +3,7 @@ const path = require("path");
 
 const app = express();
 
-// ** TODO: Router imports here **
+const indexRouter = require("./routes/indexRouter");
 
 // Configure ejs for express
 app.set("views", path.join(__dirname, "views"));
@@ -15,13 +15,9 @@ app.use(express.static(path.join(__dirname, "public")));
 // Parses form data sent from the client into req.body
 app.use(express.urlencoded({ extended: true }));
 
-// ** TODO: Passport config import here?
+// ** TODO: Passport config import here? **
 
-// ** TODO: Routers here ** app.use("/", indexRouter) etc etc
-
-app.get("/", (req, res) => {
-  res.send("Hello, world!");
-});
+app.use("/", indexRouter);
 
 // Route to catch all paths that don't exist
 app.use("/{*splat}", (req, res) => {
