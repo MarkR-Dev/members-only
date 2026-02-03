@@ -1,0 +1,8 @@
+:root {
+  --background-dark: #11151c;
+}
+
+body {
+  background-color: var(--background-dark);
+  font-family: monospace;
+}

@@ -1,0 +1,40 @@
+nav .wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav h2 a {
+  font-size: 2rem;
+  color: white;
+}
+
+nav a {
+  text-decoration: none;
+}
+
+nav ul {
+  display: flex;
+  gap: 20px;
+}
+
+nav li a,
+nav span {
+  font-size: 1.5rem;
+  color: white;
+}
+
+nav li a:hover {
+  text-decoration: underline;
+  text-underline-offset: 10px;
+}
+
+nav span {
+  user-select: none;
+}
