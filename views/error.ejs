@@ -11,6 +11,13 @@
   <body>
     <%- include("./partials/navbar.ejs") %>
 
-    <h2>Error <%= statusCode %></h2>
+    <div class="error-icon-container">
+      <img src="/img/error-icon.svg" alt="An error warning icon" width="150" />
+    </div>
+
+    <div class="error-text">
+      <h2>Error <%= statusCode %></h2>
+      <a href="/">Return to messages</a>
+    </div>
   </body>
 </html>

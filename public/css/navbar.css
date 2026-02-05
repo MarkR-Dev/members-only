@@ -38,3 +38,19 @@ nav li a:hover {
 nav span {
   user-select: none;
 }
+
+@media (width < 750px) {
+  .nav-content {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  nav h2 a {
+    font-size: 1.75rem;
+  }
+
+  nav li a,
+  nav span {
+    font-size: 1.25rem;
+  }
+}
