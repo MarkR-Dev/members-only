@@ -74,3 +74,25 @@ form {
 .submit-btn:active {
   transform: translateY(3px);
 }
+
+.form-errors-container {
+  background-color: white;
+  max-width: 450px;
+  min-width: 350px;
+  margin: 30px auto;
+  border-radius: 10px;
+  padding: 20px 25px;
+}
+
+.form-errors-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-error {
+  color: red;
+  font-weight: bold;
+  font-size: 0.9rem;
+  line-height: 1.2rem;
+}

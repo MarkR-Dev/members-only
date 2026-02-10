@@ -13,6 +13,8 @@
 
     <main>
       <div class="wrapper">
+        <%- include("./partials/form-errors.ejs") %>
+
         <form action="/sign-up" method="POST">
           <h2 class="form-heading">Sign Up</h2>
 
@@ -23,8 +25,9 @@
               id="first-name"
               name="first_name"
               minlength="1"
-              maxlength="50"
+              maxlength="51"
               required
+              value="<%= locals.prevFirstName %>"
             />
           </div>
 
@@ -35,8 +38,9 @@
               id="last-name"
               name="last_name"
               minlength="1"
-              maxlength="50"
+              maxlength="51"
               required
+              value="<%= locals.prevLastName %>"
             />
           </div>
 
@@ -47,11 +51,12 @@
               id="username"
               name="username"
               minlength="1"
-              maxlength="50"
+              maxlength="51"
               required
+              value="<%= locals.prevUsername %>"
             />
           </div>
-
+          <!--
           <div class="form-field">
             <label for="password">Password:</label>
             <input
@@ -75,7 +80,7 @@
               required
             />
           </div>
-
+-->
           <div class="btn-container">
             <button class="submit-btn" type="submit">Submit</button>
           </div>
