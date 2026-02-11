@@ -9,11 +9,6 @@ async function getSignUp(req, res) {
   res.render("sign-up", { title: "Members Only | Sign Up" });
 }
 
-// todo: go over what each form input needs to be validated as
-// todo: custom validator to verify password is the same as confirm password
-// todo: sanitise inputs after validation in db/html
-// todo: secure passwords with bcyrpt
-// todo: passport stuff
 const validateSignUp = [
   body("first_name")
     .trim()
@@ -42,7 +37,28 @@ const validateSignUp = [
 
       // If the returned query row length is truthy E.g not 0, that means an account exists with that username already
       if (user.length) {
-        throw new Error("Username already in use.");
+        throw new Error("Username is already in use.");
+      }
+    }),
+  body("password")
+    .trim()
+    .notEmpty()
+    .withMessage("Password is required.")
+    .isLength({ min: 8, max: 20 })
+    .withMessage("Password length must be between 8-20 characters."),
+  body("confirm_password")
+    .trim()
+    .notEmpty()
+    .withMessage("Confirm password is required.")
+    .isLength({ min: 8, max: 20 })
+    .withMessage("Confirm password length must be between 8-20 characters.")
+    .custom((confirmValue, { req }) => {
+      if (confirmValue !== req.body.password) {
+        throw new Error(
+          "Confirm password must match the previously entered password.",
+        );
+      } else {
+        return true;
       }
     }),
 ];
@@ -61,6 +77,8 @@ const postSignUp = [
         prevFirstName: prevData.first_name,
         prevLastName: prevData.last_name,
         prevUsername: prevData.username,
+        prevPassword: prevData.password,
+        prevConfirm: prevData.confirm_password,
       });
     } else {
       //todo: successfully validated -> look at authentication/passport/bcrypt
