@@ -1,5 +1,6 @@
 const { body, validationResult, matchedData } = require("express-validator");
 const db = require("../db/queries");
+const bcrypt = require("bcryptjs");
 
 async function getIndexMessages(req, res) {
   res.render("index", { title: "Members Only | Messages" });
@@ -33,6 +34,7 @@ const validateSignUp = [
     .isLength({ min: 1, max: 50 })
     .withMessage("Username length must be between 1-50 letters.")
     .custom(async (usernameValue) => {
+      // Custom validator to check for username already in use
       const user = await db.findAccountByUsername(usernameValue);
 
       // If the returned query row length is truthy E.g not 0, that means an account exists with that username already
@@ -53,6 +55,7 @@ const validateSignUp = [
     .isLength({ min: 8, max: 20 })
     .withMessage("Confirm password length must be between 8-20 characters.")
     .custom((confirmValue, { req }) => {
+      // Custom validator to check that password and confirm password input fields are identical
       if (confirmValue !== req.body.password) {
         throw new Error(
           "Confirm password must match the previously entered password.",
@@ -65,7 +68,7 @@ const validateSignUp = [
 
 const postSignUp = [
   validateSignUp,
-  async (req, res) => {
+  async (req, res, next) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -81,10 +84,19 @@ const postSignUp = [
         prevConfirm: prevData.confirm_password,
       });
     } else {
-      //todo: successfully validated -> look at authentication/passport/bcrypt
-      console.log(matchedData(req));
+      try {
+        const validatedData = matchedData(req);
 
-      res.redirect("/sign-up");
+        // Hash user entered password with a salt of 10 before storing password in DB
+        validatedData.password = await bcrypt.hash(validatedData.password, 10);
+
+        await db.createNewAccount(validatedData);
+
+        res.redirect("/login");
+      } catch (error) {
+        console.log(error);
+        next(error);
+      }
     }
   },
 ];

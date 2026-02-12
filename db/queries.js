@@ -8,4 +8,14 @@ async function findAccountByUsername(username) {
   return rows;
 }
 
-module.exports = { findAccountByUsername };
+async function createNewAccount(accountData) {
+  const { first_name, last_name, username, password } = accountData;
+
+  await pool.query(
+    `
+    INSERT INTO accounts (first_name, last_name, username, password, is_member, is_admin) VALUES ($1, $2, $3, $4, FALSE, FALSE);`,
+    [first_name, last_name, username, password],
+  );
+}
+
+module.exports = { findAccountByUsername, createNewAccount };
