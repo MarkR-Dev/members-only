@@ -101,4 +101,8 @@ const postSignUp = [
   },
 ];
 
-module.exports = { getIndexMessages, getSignUp, postSignUp };
+async function getLogin(req, res) {
+  res.render("login", { title: "Members Only | Login" });
+}
+
+module.exports = { getIndexMessages, getSignUp, postSignUp, getLogin };

@@ -1,0 +1,99 @@
+:root {
+  --background-dark: #11151c;
+  --green-action: #20bf55;
+  --blue-action: #4bb3fd;
+}
+
+body {
+  background-color: var(--background-dark);
+  font-family: monospace;
+}
+
+main .wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+form {
+  background-color: white;
+  max-width: 450px;
+  min-width: 350px;
+  margin: 30px auto;
+  border-radius: 10px;
+  padding: 20px 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-heading {
+  font-size: 2rem;
+  text-align: center;
+  color: var(--background-dark);
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-field label {
+  font-size: 1.3rem;
+  color: var(--background-dark);
+}
+
+.form-field input {
+  height: 40px;
+  padding: 5px;
+  font-size: 1.25rem;
+  color: var(--background-dark);
+  border: 2px solid var(--background-dark);
+}
+
+.btn-container {
+  text-align: center;
+}
+
+.login-btn {
+  font-size: 1.5rem;
+  margin: 0 auto;
+  background-color: transparent;
+  padding: 15px 20px;
+  cursor: pointer;
+  color: var(--background-dark);
+  border-color: var(--background-dark);
+}
+
+.login-btn:hover {
+  background-color: var(--blue-action);
+  border-color: transparent;
+  color: white;
+}
+
+.login-btn:active {
+  transform: translateY(3px);
+}
+
+.form-errors-container {
+  background-color: white;
+  max-width: 450px;
+  min-width: 350px;
+  margin: 30px auto;
+  border-radius: 10px;
+  padding: 20px 25px;
+}
+
+.form-errors-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-error {
+  color: red;
+  font-weight: bold;
+  font-size: 0.9rem;
+  line-height: 1.2rem;
+}

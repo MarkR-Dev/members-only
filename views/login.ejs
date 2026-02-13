@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/login.css" />
+  </head>
+  <body>
+    <%- include("./partials/navbar.ejs") %>
+
+    <main>
+      <div class="wrapper">
+        <%- include("./partials/form-errors.ejs") %>
+
+        <form action="/login" method="POST">
+          <h2 class="form-heading">Login</h2>
+
+          <div class="form-field">
+            <label for="username-login">Username:</label>
+            <input
+              type="text"
+              id="username-login"
+              name="username_login"
+              minlength="1"
+              maxlength="50"
+              required
+              value="<%= locals.prevUsernameLogin %>"
+            />
+          </div>
+
+          <div class="form-field">
+            <label for="password-login">Password:</label>
+            <input
+              type="password"
+              id="password-login"
+              name="password_login"
+              minlength="8"
+              maxlength="20"
+              required
+              value="<%= locals.prevPasswordLogin %>"
+            />
+          </div>
+
+          <div class="btn-container">
+            <button class="login-btn" type="submit">Login</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>
