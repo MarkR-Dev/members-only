@@ -1,8 +1,19 @@
-const express = require("express");
 const path = require("path");
+const express = require("express");
+const pool = require("./db/pool");
+require("dotenv").config();
+
+// TODO: setup the db session store
+// TODO: setup the db session store
+// TODO: setup the db session store
+
+// Authentication/Session imports
+const session = require("express-session");
+const pgSession = require("connect-pg-simple")(session);
+const passport = require("passport");
+require("./config/passportConfig");
 
 const app = express();
-
 const indexRouter = require("./routes/indexRouter");
 
 // Configure ejs for express
@@ -15,7 +26,21 @@ app.use(express.static(path.join(__dirname, "public")));
 // Parses form data sent from the client into req.body
 app.use(express.urlencoded({ extended: true }));
 
-// ** TODO: Passport config import here? **
+// Session middleware
+app.use(
+  session({
+    secret: process.env.MEMBERS_ONLY_SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+  }),
+);
+app.use(passport.session());
+
+// Middleware to set the currently logged in user to res.locals to avoid having to pass the user into every controller/route/view
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+});
 
 app.use("/", indexRouter);
 

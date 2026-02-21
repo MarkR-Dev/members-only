@@ -1,6 +1,7 @@
 const { body, validationResult, matchedData } = require("express-validator");
 const db = require("../db/queries");
 const bcrypt = require("bcryptjs");
+const passport = require("passport");
 
 async function getIndexMessages(req, res) {
   res.render("index", { title: "Members Only | Messages" });
@@ -32,7 +33,7 @@ const validateSignUp = [
     .notEmpty()
     .withMessage("Username is required.")
     .isLength({ min: 1, max: 50 })
-    .withMessage("Username length must be between 1-50 letters.")
+    .withMessage("Username length must be between 1-50 characters.")
     .custom(async (usernameValue) => {
       // Custom validator to check for username already in use
       const user = await db.findAccountByUsername(usernameValue);
@@ -102,7 +103,60 @@ const postSignUp = [
 ];
 
 async function getLogin(req, res) {
-  res.render("login", { title: "Members Only | Login" });
+  res.render("login", {
+    title: "Members Only | Login",
+    loginErrors: req.session.messages,
+  });
+
+  // Clear the session errors after sending them to the view to avoid a backlog
+  if (req.session.messages) {
+    req.session.messages = [];
+  }
 }
 
-module.exports = { getIndexMessages, getSignUp, postSignUp, getLogin };
+const validateLogin = [
+  body("username_login")
+    .trim()
+    .notEmpty()
+    .withMessage("Username is required.")
+    .isLength({ min: 1, max: 50 })
+    .withMessage("Username length must be between 1-50 characters."),
+  body("password_login")
+    .trim()
+    .notEmpty()
+    .withMessage("Password is required.")
+    .isLength({ min: 8, max: 20 })
+    .withMessage("Password length must be between 8-20 characters."),
+];
+
+const postLogin = [
+  validateLogin,
+  async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      const prevData = matchedData(req, { onlyValidData: false });
+
+      return res.status(400).render("login", {
+        title: "Members Only | Login",
+        errors: errors.array(),
+        prevUsernameLogin: prevData.username_login,
+      });
+    } else {
+      next();
+    }
+  },
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/login",
+    failureMessage: true,
+  }),
+];
+
+module.exports = {
+  getIndexMessages,
+  getSignUp,
+  postSignUp,
+  getLogin,
+  postLogin,
+};

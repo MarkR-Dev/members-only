@@ -13,7 +13,8 @@
 
     <main>
       <div class="wrapper">
-        <%- include("./partials/form-errors.ejs") %>
+        <%- include("./partials/form-errors.ejs") %> <%-
+        include("./partials/login-errors.ejs") %>
 
         <form action="/login" method="POST">
           <h2 class="form-heading">Login</h2>
@@ -40,7 +41,6 @@
               minlength="8"
               maxlength="20"
               required
-              value="<%= locals.prevPasswordLogin %>"
             />
           </div>
 

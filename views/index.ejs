@@ -14,6 +14,9 @@
     <main>
       <h2>Main</h2>
       <h2>Index page - messages</h2>
+      <% if(locals.currentUser) { %>
+        <p>hello <%= currentUser.first_name %></p>
+        <% } %>
     </main>
   </body>
 </html>

@@ -4,6 +4,7 @@ const {
   getSignUp,
   postSignUp,
   getLogin,
+  postLogin,
 } = require("../controllers/indexController");
 
 const indexRouter = Router();
@@ -14,8 +15,6 @@ indexRouter.get("/sign-up", getSignUp);
 indexRouter.post("/sign-up", postSignUp);
 
 indexRouter.get("/login", getLogin);
-indexRouter.post("/login", (req, res) => {
-  res.send("login");
-});
+indexRouter.post("/login", postLogin);
 
 module.exports = indexRouter;
