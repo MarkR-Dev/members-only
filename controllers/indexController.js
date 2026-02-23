@@ -8,7 +8,12 @@ async function getIndexMessages(req, res) {
 }
 
 async function getSignUp(req, res) {
-  res.render("sign-up", { title: "Members Only | Sign Up" });
+  // Redirect user to messages if they are signed in and try to manually visit the sign up page, could also use req.isAuthenticated()
+  if (res.locals.currentUser) {
+    res.redirect("/");
+  } else {
+    res.render("sign-up", { title: "Members Only | Sign Up" });
+  }
 }
 
 const validateSignUp = [
@@ -103,14 +108,19 @@ const postSignUp = [
 ];
 
 async function getLogin(req, res) {
-  res.render("login", {
-    title: "Members Only | Login",
-    loginErrors: req.session.messages,
-  });
+  // Redirect user to messages if they are signed in and try to manually visit the login page, could also use req.isAuthenticated()
+  if (res.locals.currentUser) {
+    res.redirect("/");
+  } else {
+    res.render("login", {
+      title: "Members Only | Login",
+      loginErrors: req.session.messages,
+    });
 
-  // Clear the session errors after sending them to the view to avoid a backlog
-  if (req.session.messages) {
-    req.session.messages = [];
+    // Clear the session errors after sending them to the view to avoid a backlog
+    if (req.session.messages) {
+      req.session.messages = [];
+    }
   }
 }
 

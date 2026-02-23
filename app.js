@@ -3,10 +3,6 @@ const express = require("express");
 const pool = require("./db/pool");
 require("dotenv").config();
 
-// TODO: setup the db session store
-// TODO: setup the db session store
-// TODO: setup the db session store
-
 // Authentication/Session imports
 const session = require("express-session");
 const pgSession = require("connect-pg-simple")(session);
@@ -29,6 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 // Session middleware
 app.use(
   session({
+    store: new pgSession({ pool: pool }),
     secret: process.env.MEMBERS_ONLY_SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
