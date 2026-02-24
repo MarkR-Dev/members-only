@@ -11,6 +11,7 @@ require("./config/passportConfig");
 
 const app = express();
 const indexRouter = require("./routes/indexRouter");
+const messageRouter = require("./routes/messageRouter");
 
 // Configure ejs for express
 app.set("views", path.join(__dirname, "views"));
@@ -29,6 +30,10 @@ app.use(
     secret: process.env.MEMBERS_ONLY_SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    // Set this to persist the cookie in the browser for 1 day, even if the browser or app is shut down
+    // cookie: {
+    //   maxAge: 1000 * 60 * 60 * 24,
+    // },
   }),
 );
 app.use(passport.session());
@@ -39,7 +44,9 @@ app.use((req, res, next) => {
   next();
 });
 
+// Routes
 app.use("/", indexRouter);
+app.use("/message", messageRouter);
 
 // Route to catch all paths that don't exist
 app.use("/{*splat}", (req, res) => {

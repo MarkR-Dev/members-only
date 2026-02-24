@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/new-message.css" />
+  </head>
+  <body>
+    <%- include("./partials/navbar.ejs") %>
+
+    <main>
+      <div class="wrapper">
+        <%- include("./partials/form-errors.ejs") %>
+
+        <form action="/message/new" method="POST">
+          <h2 class="form-heading">New Message</h2>
+
+          <div class="form-field">
+            <label for="message-title">Title:</label>
+            <input
+              type="text"
+              id="message-title"
+              name="message_title"
+              minlength="1"
+              maxlength="50"
+              required
+            />
+          </div>
+
+          <div class="btn-container">
+            <button class="post-btn" type="submit">Post</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>
+
+<!-- todo: message body input and style, message validation, add msg to DB -->
