@@ -25,9 +25,24 @@
               id="message-title"
               name="message_title"
               minlength="1"
-              maxlength="50"
+              maxlength="75"
               required
+              value="<%= locals.prevTitle %>"
             />
+          </div>
+
+          <div class="form-field">
+            <label for="message-body">Message:</label>
+            <textarea
+              id="message-body"
+              name="message_body"
+              rows="4"
+              minlength="1"
+              maxlength="255"
+              required
+            >
+<%= locals.prevBody %></textarea
+            >
           </div>
 
           <div class="btn-container">
@@ -38,5 +53,3 @@
     </main>
   </body>
 </html>
-
-<!-- todo: message body input and style, message validation, add msg to DB -->

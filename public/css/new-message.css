@@ -51,6 +51,15 @@ form {
   border: 2px solid var(--background-dark);
 }
 
+.form-field textarea {
+  padding: 5px;
+  font-size: 1.25rem;
+  color: var(--background-dark);
+  border: 2px solid var(--background-dark);
+  line-height: 1.75rem;
+  resize: vertical;
+}
+
 .btn-container {
   text-align: center;
 }
