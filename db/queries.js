@@ -17,4 +17,13 @@ async function createNewAccount(accountData) {
   );
 }
 
-module.exports = { findAccountByUsername, createNewAccount };
+async function createNewMessage(messageData) {
+  const { message_title, message_body, accountId } = messageData;
+
+  await pool.query(
+    `INSERT INTO messages (title, message, account_id, date_posted) VALUES ($1, $2, $3, NOW());`,
+    [message_title, message_body, accountId],
+  );
+}
+
+module.exports = { findAccountByUsername, createNewAccount, createNewMessage };

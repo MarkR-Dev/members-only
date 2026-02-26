@@ -42,10 +42,14 @@ const postNewMessage = [
       try {
         const validatedData = matchedData(req);
 
-        // TODO: add the new message to the DB, dont forget to add the user id in from currentUser
-        // TODO: add the new message to the DB, dont forget to add the user id in from currentUser
-        // TODO: add the new message to the DB, dont forget to add the user id in from currentUser
-        // res.redirect("/") after
+        const messageData = {
+          ...validatedData,
+          accountId: res.locals.currentUser.id,
+        };
+
+        await db.createNewMessage(messageData);
+
+        res.redirect("/");
       } catch (error) {
         console.log(error);
         next(error);
