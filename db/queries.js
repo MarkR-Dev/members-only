@@ -26,4 +26,17 @@ async function createNewMessage(messageData) {
   );
 }
 
-module.exports = { findAccountByUsername, createNewAccount, createNewMessage };
+// The date/timestamp is stored in the DB via the NOW() function but I didn't want that format to display in the view, decided to format it here when retrieving from the DB, orders the messages by id in descending order to have the newest created messages at the top. For the future, theres probably better ways to handle this
+async function getAllMessages() {
+  const { rows } = await pool.query(
+    `SELECT id, title, message, account_id, to_char(date_posted, 'DD/MM/YYYY HH24:MI:SS') AS formatted_date FROM messages ORDER BY id DESC;`,
+  );
+  return rows;
+}
+
+module.exports = {
+  findAccountByUsername,
+  createNewAccount,
+  createNewMessage,
+  getAllMessages,
+};

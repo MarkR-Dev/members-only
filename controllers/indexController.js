@@ -4,7 +4,9 @@ const bcrypt = require("bcryptjs");
 const passport = require("passport");
 
 async function getIndexMessages(req, res) {
-  res.render("index", { title: "Members Only | Messages" });
+  const messages = await db.getAllMessages();
+
+  res.render("index", { title: "Members Only | Messages", messages: messages });
 }
 
 async function getSignUp(req, res) {

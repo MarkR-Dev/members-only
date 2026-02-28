@@ -12,11 +12,28 @@
     <%- include("./partials/navbar.ejs") %>
 
     <main>
-      <h2>Main</h2>
-      <h2>Index page - messages</h2>
-      <% if(locals.currentUser) { %>
-        <p>hello <%= currentUser.first_name %></p>
-      <% } %>
+      <div class="wrapper">
+        <div class="content">
+          <h2 class="title">Messages</h2>
+
+          <% if(locals.currentUser) { %>
+            <a href="/message/new" class="new-message-link">New Message</a>
+          <% } %>
+
+          <% if(messages.length > 0){  %>
+              <div class="messages-container">
+                <% messages.map(message => { %>
+                  <!-- TODO: design how the message will look -->
+                  <!-- TODO: design how the message will look -->
+                  <!-- TODO: design how the message will look -->
+                <% }) %>
+              </div>
+            <% }else { %>
+              <h3 class="empty-message">There are currently no messages to display.</h3>
+            <% } %>
+          
+        </div>
+      </div>
     </main>
   </body>
 </html>
