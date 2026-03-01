@@ -23,16 +23,29 @@
           <% if(messages.length > 0){  %>
               <div class="messages-container">
                 <% messages.map(message => { %>
-                  <!-- TODO: design how the message will look -->
-                  <!-- TODO: design how the message will look -->
-                  <!-- TODO: design how the message will look -->
+                    <div class="message">
+                      <h3 class="message-title"><%= message.title %></h3>
+
+                      <p class="message-body"><%= message.message %></p>
+
+                      <div class="message-info">
+                        <% if(locals.currentUser?.is_member === true){ %>
+                          <!-- TODO: update db query to perform a join on the accounts table to get the username  -->
+                          <!-- TODO: update db query to perform a join on the accounts table to get the username  -->
+                          <!-- TODO: update db query to perform a join on the accounts table to get the username  -->
+                          <p class="user">message-author</p>
+                        <% } else { %>
+                          <p class="user">Unknown User</p>
+                        <% } %>
+                        <p class="message-date"><%= message.formatted_date %></p>
+                      </div>
+                    </div>
                 <% }) %>
               </div>
             <% }else { %>
               <h3 class="empty-message">There are currently no messages to display.</h3>
             <% } %>
-          
-        </div>
+          </div>
       </div>
     </main>
   </body>
