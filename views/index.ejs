@@ -30,12 +30,9 @@
 
                       <div class="message-info">
                         <% if(locals.currentUser?.is_member === true){ %>
-                          <!-- TODO: update db query to perform a join on the accounts table to get the username  -->
-                          <!-- TODO: update db query to perform a join on the accounts table to get the username  -->
-                          <!-- TODO: update db query to perform a join on the accounts table to get the username  -->
-                          <p class="user">message-author</p>
+                          <p class="user"><%= message.username %></p>
                         <% } else { %>
-                          <p class="user">Unknown User</p>
+                          <p class="user">Details Hidden</p>
                         <% } %>
                         <p class="message-date"><%= message.formatted_date %></p>
                       </div>
