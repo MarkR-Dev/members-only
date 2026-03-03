@@ -1,0 +1,16 @@
+:root {
+  --background-dark: #11151c;
+  --green-action: #20bf55;
+  --blue-action: #4bb3fd;
+}
+
+body {
+  background-color: var(--background-dark);
+  font-family: monospace;
+}
+
+main .wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}

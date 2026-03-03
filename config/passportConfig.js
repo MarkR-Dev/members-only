@@ -17,7 +17,9 @@ passport.use(
 
         if (!user) {
           // Username doesn't exist
-          return done(null, false, { message: "Incorrect username." });
+          return done(null, false, {
+            message: "An account with that username doesn't exist.",
+          });
         }
 
         const match = await bcrypt.compare(password, user.password);

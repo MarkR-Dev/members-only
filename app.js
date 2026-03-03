@@ -12,6 +12,7 @@ require("./config/passportConfig");
 const app = express();
 const indexRouter = require("./routes/indexRouter");
 const messageRouter = require("./routes/messageRouter");
+const accountRouter = require("./routes/accountRouter");
 
 // Configure ejs for express
 app.set("views", path.join(__dirname, "views"));
@@ -47,6 +48,7 @@ app.use((req, res, next) => {
 // Routes
 app.use("/", indexRouter);
 app.use("/message", messageRouter);
+app.use("/account", accountRouter);
 
 // Route to catch all paths that don't exist
 app.use("/{*splat}", (req, res) => {
