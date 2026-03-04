@@ -2,11 +2,17 @@ async function getAccount(req, res) {
   if (!res.locals.currentUser) {
     res.redirect("/login");
   } else {
-    console.log(res.locals.currentUser);
     res.render("account", { title: "Members Only | Account" });
   }
 }
 
-// TODO: style the account page, log out btn
+async function postLogout(req, res) {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+}
 
-module.exports = { getAccount };
+module.exports = { getAccount, postLogout };

@@ -14,3 +14,69 @@ main .wrapper {
   margin: 0 auto;
   padding: 20px;
 }
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+}
+
+.welcome-message {
+  color: white;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.account-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.log-out-btn,
+.action-link,
+.delete-btn {
+  background-color: transparent;
+  font-size: 1.2rem;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 20px 30px;
+  text-align: center;
+  width: 250px;
+}
+
+.log-out-btn,
+.action-link {
+  color: white;
+  border: 2px solid white;
+}
+
+.log-out-btn:hover,
+.action-link:hover {
+  background-color: white;
+  color: var(--background-dark);
+}
+
+.log-out-btn:active,
+.action-link:active,
+.delete-btn:active {
+  transform: translateY(3px);
+}
+
+.delete-btn {
+  color: red;
+  border: 2px solid red;
+}
+
+.delete-btn:hover {
+  background-color: red;
+  color: var(--background-dark);
+}
+
+@media (width < 750px) {
+  .welcome-message {
+    font-size: 2rem;
+  }
+}

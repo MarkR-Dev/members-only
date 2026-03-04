@@ -31,7 +31,7 @@ app.use(
     secret: process.env.MEMBERS_ONLY_SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    // Set this to persist the cookie in the browser for 1 day, even if the browser or app is shut down
+    // Set this to persist the cookie in the browser for 1 day, even if the browser is closed
     // cookie: {
     //   maxAge: 1000 * 60 * 60 * 24,
     // },
