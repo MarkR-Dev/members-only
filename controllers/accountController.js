@@ -15,4 +15,18 @@ async function postLogout(req, res) {
   });
 }
 
-module.exports = { getAccount, postLogout };
+async function getUpgradeMember(req, res) {
+  if (!res.locals.currentUser) {
+    res.redirect("/login");
+  } else {
+    res.render("upgrade-member", { title: "Members Only | Account Upgrade" });
+  }
+}
+
+const validateUpgradeMember = [];
+
+// todo: fix view to show alternate html if the user is already a member, validate password field, how to store and compare this?
+// todo: fix view to show alternate html if the user is already a member, validate password field, how to store and compare this?
+// todo: fix view to show alternate html if the user is already a member, validate password field, how to store and compare this?
+
+module.exports = { getAccount, postLogout, getUpgradeMember };
