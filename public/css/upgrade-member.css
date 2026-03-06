@@ -97,3 +97,35 @@ form {
   font-size: 0.9rem;
   line-height: 1.2rem;
 }
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.member-message {
+  font-size: 1.75rem;
+  color: white;
+  font-style: italic;
+}
+
+.return-link {
+  text-decoration: none;
+  border: 2px solid white;
+  color: white;
+  font-size: 1.2rem;
+  padding: 20px 30px;
+  cursor: pointer;
+}
+
+.return-link:hover {
+  background-color: white;
+  color: var(--background-dark);
+}
+
+.return-link:active {
+  transform: translateY(3px);
+}

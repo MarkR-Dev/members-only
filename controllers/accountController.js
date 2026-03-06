@@ -1,3 +1,6 @@
+const { body, validationResult, matchedData } = require("express-validator");
+const db = require("../db/queries");
+
 async function getAccount(req, res) {
   if (!res.locals.currentUser) {
     res.redirect("/login");
@@ -23,10 +26,35 @@ async function getUpgradeMember(req, res) {
   }
 }
 
-const validateUpgradeMember = [];
+const validateUpgradeMember = [
+  body("member_password")
+    .trim()
+    .notEmpty()
+    .withMessage("Member password is required.")
+    .isLength({ min: 8, max: 20 })
+    .withMessage("Member password length must be between 8-20 characters."),
+];
 
-// todo: fix view to show alternate html if the user is already a member, validate password field, how to store and compare this?
-// todo: fix view to show alternate html if the user is already a member, validate password field, how to store and compare this?
-// todo: fix view to show alternate html if the user is already a member, validate password field, how to store and compare this?
+const postUpgradeMember = [
+  validateUpgradeMember,
+  async (req, res, next) => {
+    const errors = validationResult(req);
 
-module.exports = { getAccount, postLogout, getUpgradeMember };
+    if (!errors.isEmpty()) {
+      return res.status(400).render("upgrade-member", {
+        title: "Members Only | Account Upgrade",
+        errors: errors.array(),
+      });
+    } else {
+      // TODO: where/how to store the saved member password, how to compare it against the entered user password, redirect to member upgrade page on failed attempt, with an error message to display in the errors-list
+      res.send("valid attempt");
+    }
+  },
+];
+
+module.exports = {
+  getAccount,
+  postLogout,
+  getUpgradeMember,
+  postUpgradeMember,
+};

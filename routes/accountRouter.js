@@ -3,6 +3,7 @@ const {
   getAccount,
   postLogout,
   getUpgradeMember,
+  postUpgradeMember,
 } = require("../controllers/accountController");
 
 const accountRouter = Router();
@@ -12,8 +13,6 @@ accountRouter.get("/", getAccount);
 accountRouter.post("/logout", postLogout);
 
 accountRouter.get("/upgrade/member", getUpgradeMember);
-accountRouter.post("/upgrade/member", (req, res) => {
-  res.send("member upgrade POST");
-});
+accountRouter.post("/upgrade/member", postUpgradeMember);
 
 module.exports = accountRouter;
