@@ -1,0 +1,11 @@
+<% if(locals.upgradeErrors) { %>
+    <% if(upgradeErrors.length > 0) { %>
+        <div class="form-errors-container">
+            <ul class="form-errors-list">
+                <% upgradeErrors.map(message => { %>
+                    <li class="form-error">- <%= message %></li>
+                <% }) %>
+            </ul>
+        </div>
+    <% } %>    
+<% } %>

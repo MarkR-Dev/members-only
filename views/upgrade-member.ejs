@@ -20,10 +20,8 @@
           </div>
         <% }else { %>
           <%- include("./partials/form-errors.ejs") %>
-          <!-- TODO: password errors here? -->
-          <!-- TODO: password errors here? -->
-          <!-- TODO: password errors here? -->
-
+          <%- include("./partials/upgrade-errors.ejs") %>
+        
           <form action="/account/upgrade/member" method="POST">
             <h2 class="form-heading">Member Upgrade</h2>
 

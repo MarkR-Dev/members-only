@@ -34,9 +34,18 @@ async function getAllMessages() {
   return rows;
 }
 
+async function updateIsMember(userId) {
+  await pool.query(
+    `
+    UPDATE accounts SET is_member = TRUE WHERE id = $1;`,
+    [userId],
+  );
+}
+
 module.exports = {
   findAccountByUsername,
   createNewAccount,
   createNewMessage,
   getAllMessages,
+  updateIsMember,
 };

@@ -1,4 +1,5 @@
 const { body, validationResult, matchedData } = require("express-validator");
+const bcrypt = require("bcryptjs");
 const db = require("../db/queries");
 
 async function getAccount(req, res) {
@@ -46,8 +47,27 @@ const postUpgradeMember = [
         errors: errors.array(),
       });
     } else {
-      // TODO: where/how to store the saved member password, how to compare it against the entered user password, redirect to member upgrade page on failed attempt, with an error message to display in the errors-list
-      res.send("valid attempt");
+      const { member_password: userPasswordInput } = matchedData(req);
+
+      const match = await bcrypt.compare(
+        userPasswordInput,
+        process.env.MEMBERS_ONLY_MEMBER_PASSWORD,
+      );
+
+      if (!match) {
+        // Passwords do NOT match!
+        return res.status(400).render("upgrade-member", {
+          title: "Members Only | Account Upgrade",
+          upgradeErrors: ["Incorrect member password."],
+        });
+      } else {
+        // Passwords do match!
+        const userId = res.locals.currentUser.id;
+
+        await db.updateIsMember(userId);
+
+        return res.redirect("/account");
+      }
     }
   },
 ];
