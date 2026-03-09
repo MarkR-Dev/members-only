@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/upgrade-admin.css" />
+  </head>
+  <body>
+    <%- include("./partials/navbar.ejs") %>
+
+    <main>
+      <div class="wrapper">
+        <% if(locals.currentUser.is_admin === true) { %>
+            <div class="content">
+                <h2 class="admin-message">This account already has admin status.</h2>
+                <a href="/account" class="return-link">Return to Account</a>
+            </div>
+        <% } else { %>
+            <%- include("./partials/form-errors.ejs") %>
+            <%- include("./partials/upgrade-errors.ejs") %>
+
+            <form action="/account/upgrade/admin" method="POST">
+            <h2 class="form-heading">Admin Upgrade</h2>
+
+            <div class="form-field">
+              <label for="admin-password">Password:</label>
+              <input
+                type="password"
+                id="admin-password"
+                name="admin_password"
+                minlength="8"
+                maxlength="20"
+                required
+              />
+            </div>
+
+            <div class="btn-container">
+              <button class="submit-btn" type="submit">Submit</button>
+            </div>
+          </form>
+        <% } %>
+      </div>
+    </main>
+  </body>
+</html>

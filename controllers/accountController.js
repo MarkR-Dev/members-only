@@ -62,19 +62,33 @@ const postUpgradeMember = [
         });
       } else {
         // Passwords do match!
-        const userId = res.locals.currentUser.id;
+        try {
+          const userId = res.locals.currentUser.id;
 
-        await db.updateIsMember(userId);
+          await db.updateIsMember(userId);
 
-        return res.redirect("/account");
+          return res.redirect("/account");
+        } catch (error) {
+          console.log(error);
+          next(error);
+        }
       }
     }
   },
 ];
+
+async function getUpgradeAdmin(req, res) {
+  if (!res.locals.currentUser) {
+    res.redirect("/login");
+  } else {
+    res.render("upgrade-admin", { title: "Members Only | Account Upgrade" });
+  }
+}
 
 module.exports = {
   getAccount,
   postLogout,
   getUpgradeMember,
   postUpgradeMember,
+  getUpgradeAdmin,
 };
