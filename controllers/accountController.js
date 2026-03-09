@@ -85,10 +85,37 @@ async function getUpgradeAdmin(req, res) {
   }
 }
 
+const validateUpgradeAdmin = [
+  body("admin_password")
+    .trim()
+    .notEmpty()
+    .withMessage("Admin password is required.")
+    .isLength({ min: 8, max: 20 })
+    .withMessage("Admin password length must be between 8-20 characters."),
+];
+
+const postUpgradeAdmin = [
+  validateUpgradeAdmin,
+  async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).render("upgrade-admin", {
+        title: "Members Only | Account Upgrade",
+        errors: errors.array(),
+      });
+    } else {
+      // TODO: check pw against env password, on fail render page again with error, on success update db record to admin true, also set member to true, lastly edit messages page to allow deletion of messages if you're an admin
+      res.send("123");
+    }
+  },
+];
+
 module.exports = {
   getAccount,
   postLogout,
   getUpgradeMember,
   postUpgradeMember,
   getUpgradeAdmin,
+  postUpgradeAdmin,
 };

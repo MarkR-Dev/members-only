@@ -5,6 +5,7 @@ const {
   getUpgradeMember,
   postUpgradeMember,
   getUpgradeAdmin,
+  postUpgradeAdmin,
 } = require("../controllers/accountController");
 
 const accountRouter = Router();
@@ -17,5 +18,6 @@ accountRouter.get("/upgrade/member", getUpgradeMember);
 accountRouter.post("/upgrade/member", postUpgradeMember);
 
 accountRouter.get("/upgrade/admin", getUpgradeAdmin);
+accountRouter.post("/upgrade/admin", postUpgradeAdmin);
 
 module.exports = accountRouter;
