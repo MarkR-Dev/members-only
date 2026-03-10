@@ -165,10 +165,18 @@ const postLogin = [
   }),
 ];
 
+async function deleteMessage(req, res, next) {
+  const messageId = req.params.id;
+  await db.deleteMessage(messageId);
+
+  res.redirect("/");
+}
+
 module.exports = {
   getIndexMessages,
   getSignUp,
   postSignUp,
   getLogin,
   postLogin,
+  deleteMessage,
 };

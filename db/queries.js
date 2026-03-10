@@ -50,6 +50,14 @@ async function updateIsAdmin(userId) {
   );
 }
 
+async function deleteMessage(messageId) {
+  await pool.query(
+    `
+    DELETE FROM messages WHERE id = $1`,
+    [messageId],
+  );
+}
+
 module.exports = {
   findAccountByUsername,
   createNewAccount,
@@ -57,4 +65,5 @@ module.exports = {
   getAllMessages,
   updateIsMember,
   updateIsAdmin,
+  deleteMessage,
 };

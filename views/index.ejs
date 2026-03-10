@@ -24,7 +24,14 @@
               <div class="messages-container">
                 <% messages.map(message => { %>
                     <div class="message">
-                      <h3 class="message-title"><%= message.title %></h3>
+                      <div class="message-header">
+                        <h3 class="message-title"><%= message.title %></h3>
+                        <% if(locals.currentUser?.is_admin === true) { %>
+                          <form action="/delete/<%= message.id %>" method="POST">
+                            <button type="submit" class="del-btn">x</button>
+                          </form>
+                        <% } %>
+                      </div>
 
                       <p class="message-body"><%= message.message %></p>
 

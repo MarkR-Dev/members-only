@@ -70,8 +70,33 @@ main .wrapper {
   gap: 20px;
 }
 
+.message-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .message-title {
   font-size: 1.5rem;
+}
+
+.del-btn {
+  color: red;
+  background-color: transparent;
+  border: 2px solid red;
+  padding: 5px 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.del-btn:hover {
+  background-color: red;
+  color: white;
+}
+
+.del-btn:active {
+  transform: translateY(3px);
 }
 
 .message-body {
