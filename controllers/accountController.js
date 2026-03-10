@@ -105,8 +105,32 @@ const postUpgradeAdmin = [
         errors: errors.array(),
       });
     } else {
-      // TODO: check pw against env password, on fail render page again with error, on success update db record to admin true, also set member to true, lastly edit messages page to allow deletion of messages if you're an admin
-      res.send("123");
+      const { admin_password: userPasswordInput } = matchedData(req);
+
+      const match = await bcrypt.compare(
+        userPasswordInput,
+        process.env.MEMBERS_ONLY_ADMIN_PASSWORD,
+      );
+
+      if (!match) {
+        // Passwords do NOT match!
+        return res.status(400).render("upgrade-admin", {
+          title: "Members Only | Account Upgrade",
+          upgradeErrors: ["Incorrect admin password."],
+        });
+      } else {
+        // Passwords do match!
+        try {
+          const userId = res.locals.currentUser.id;
+
+          await db.updateIsAdmin(userId);
+
+          return res.redirect("/account");
+        } catch (error) {
+          console.log(error);
+          next(error);
+        }
+      }
     }
   },
 ];

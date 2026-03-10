@@ -42,10 +42,19 @@ async function updateIsMember(userId) {
   );
 }
 
+async function updateIsAdmin(userId) {
+  await pool.query(
+    `
+    UPDATE accounts SET is_member = TRUE, is_admin = TRUE WHERE id = $1;`,
+    [userId],
+  );
+}
+
 module.exports = {
   findAccountByUsername,
   createNewAccount,
   createNewMessage,
   getAllMessages,
   updateIsMember,
+  updateIsAdmin,
 };
