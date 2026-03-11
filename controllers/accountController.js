@@ -146,7 +146,12 @@ async function postDelete(req, res, next) {
     res.redirect("/");
   });
 
-  await db.deleteAccount(userId);
+  try {
+    await db.deleteAccount(userId);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
 }
 
 module.exports = {
