@@ -135,6 +135,20 @@ const postUpgradeAdmin = [
   },
 ];
 
+async function postDelete(req, res, next) {
+  const userId = res.locals.currentUser.id;
+
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+
+    res.redirect("/");
+  });
+
+  await db.deleteAccount(userId);
+}
+
 module.exports = {
   getAccount,
   postLogout,
@@ -142,4 +156,5 @@ module.exports = {
   postUpgradeMember,
   getUpgradeAdmin,
   postUpgradeAdmin,
+  postDelete,
 };
